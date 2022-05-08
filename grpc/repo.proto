@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.atmon.repo.grpc";
+option go_package = "github.com/atmom/repo/grpc";
+
+package repo;
+
+// Services of atmon repository.
+service Repo {
+    // Get components from repository server.
+    rpc GetCompt (GetComptRequest) returns (GetComptResponse) {}
+}
+
+// Get components request.
+message GetComptRequest {
+
+    // Components info.
+    repeated ComptInfo components = 1;
+}
+
+// Component info.
+message ComptInfo {
+    // component ID.
+    string id = 1;
+
+    // component version.
+    string version = 2;
+}
+
+// Get components response.
+message GetComptResponse {
+    // Responsed code from config server.
+    int32 code = 1;
+
+    // Responsed message from config server.
+    string message = 2;
+
+    // Component ID.
+    string id = 3;
+    
+    // Component name.
+    string name = 4;
+
+    // Component version.
+    string version = 5;
+
+    // Component description.
+    string desc = 6;
+
+    // Component styles.
+    repeated Style styles = 7;
+
+    // Component actions.
+    repeated Action actions = 8;
+}
+
+// Component style.
+message Style {
+    // Style name.
+    string name = 1;
+
+    // Style template.
+    string template = 2;
+
+    // Values of template.
+    repeated string values = 3;
+}
+
+// Component action.
+message Action {
+    // Action name.
+    string name = 1;
+
+    // Action version.
+    string version = 2;
+
+    // Action description.
+    string desc = 3;
+
+    // Action flow.
+    ActionFlow flow = 4;;
+}
+
+// Action flow info.
+message ActionFlow {
+    // Flow ID.
+    string id = 1;
+
+    // Flow name.
+    string name = 2;
+
+    // Flow description.
+    string desc = 3;
+
+    // Flow status.
+    string status = 4;
+
+    // Flow requset.
+    string request = 5;
+
+    // Flow response.
+    string response = 6;
+
+    // Flow nodes.
+    repeated ActionFlowNode nodes = 7;
+}
+
+// Flow node Configuration.
+message ActionFlowNode {
+    // Flow node ID.
+    string id = 1;
+
+    // Flow node name.
+    string name = 2;
+
+    // Flow node description.
+    string desc = 3;
+
+    // Flow node server type, values are 'Golang','Java' or 'NodeJS'.
+    string type = 4;
+
+    // Flow context define.
+    string context = 5;
+}
